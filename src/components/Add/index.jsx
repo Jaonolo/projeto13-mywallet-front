@@ -3,17 +3,19 @@ import { useContext } from "react"
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 import UserContext from "../../contexts/UserContext"
+import UrlContext from "../../contexts/UrlContext"
 import Form from "../Form"
 
 const Add = ({ signal }) => {
     const { user } = useContext(UserContext)
+    const { url } = useContext(UrlContext)
     const navigate = useNavigate()
 
     const submitFunc = data => {
         const newData = {...data, value: signal*data.value}
 
         axios
-            .post(`http://localhost:5000/wallet/${user.Id}`, newData, {
+            .post(`${url}/${user.Id}`, newData, {
                 headers: {
                     Authorization: user.Authorization
                 }

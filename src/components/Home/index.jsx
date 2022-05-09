@@ -4,12 +4,14 @@ import styled from "styled-components"
 import axios from 'axios'
 
 import UserContext from "../../contexts/UserContext"
+import UrlContext from "../../contexts/UrlContext"
 
 import logoutLogo from "../../Vector.svg"
 
 const Home = () => {
     const navigate = useNavigate()
     const { user, setUser } = useContext(UserContext)
+    const { url } = useContext(UrlContext)
     const [wallet, setWallet] = useState(null)
 
     const formatLog = log => <div>
@@ -25,7 +27,7 @@ const Home = () => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:5000/wallet/${user.Id}`, {
+            .get(`${url}/${user.Id}`, {
                 headers: {
                     Authorization: user.Authorization
                 }

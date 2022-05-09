@@ -1,10 +1,14 @@
+import { useContext } from "react"
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+
+import UrlContext from "../../contexts/UrlContext"
 
 import Form from '../Form'
 
 const Register = () => {
     const navigate = useNavigate()
+    const { url } = useContext(UrlContext)
 
     const submitFunc = data => {
         if(data?.confirm !== data?.password) {
@@ -15,7 +19,7 @@ const Register = () => {
         delete data?.confirm
 
         axios
-            .post('http://localhost:5000/register', data)
+            .post(`${url}/register`, data)
             .then(({data}) => {
                 alert("Usuário registrado com sucesso!")
                 navigate('/login')

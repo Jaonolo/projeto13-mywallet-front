@@ -5,14 +5,16 @@ import axios from 'axios'
 import Form from '../Form'
 
 import UserContext from "../../contexts/UserContext"
+import UrlContext from "../../contexts/UrlContext"
 
 const Login = () => {
     const navigate = useNavigate()
     const { setUser } = useContext(UserContext)
+    const { url } = useContext(UrlContext)
 
     const submitFunc = data => {
         axios
-            .post('http://localhost:5000/login', data)
+            .post(`${url}/login`, data)
             .then(({data}) => {
                 const user = { ...data }
                 setUser(user)

@@ -10,26 +10,29 @@ import PublicRoutes from "../PublicRoutes"
 import PrivateRoutes from "../PrivateRoutes"
 
 import UserContext from "../../contexts/UserContext.jsx"
+import UrlContext from "../../contexts/UrlContext.jsx"
 
 const App = () => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")))
 
     return <UserContext.Provider value={{user, setUser}}>
-            <BrowserRouter>
-                <AppContainer>
-                    <Routes>
-                        <Route element={<PublicRoutes/>} >
-                            <Route path="/register" element={<Register/>}/>
-                            <Route path="/login" element={<Login/>}/>
-                        </Route>
-                        <Route element={<PrivateRoutes/>} >
-                            <Route path="/" element={<Home/>}/>
-                            <Route path="/add" element={<Add signal={1}/>}/>
-                            <Route path="/subtract" element={<Add signal={-1}/>}/>
-                        </Route>
-                    </Routes>
-                </AppContainer>
-            </BrowserRouter>
+            <UrlContext.Provider value={'http://localhost:5000'}>
+                <BrowserRouter>
+                    <AppContainer>
+                        <Routes>
+                            <Route element={<PublicRoutes/>} >
+                                <Route path="/register" element={<Register/>}/>
+                                <Route path="/login" element={<Login/>}/>
+                            </Route>
+                            <Route element={<PrivateRoutes/>} >
+                                <Route path="/" element={<Home/>}/>
+                                <Route path="/add" element={<Add signal={1}/>}/>
+                                <Route path="/subtract" element={<Add signal={-1}/>}/>
+                            </Route>
+                        </Routes>
+                    </AppContainer>
+                </BrowserRouter>
+            </UrlContext.Provider>
         </UserContext.Provider>
 }
 
